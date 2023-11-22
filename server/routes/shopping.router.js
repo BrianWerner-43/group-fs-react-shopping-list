@@ -35,4 +35,52 @@ router.post('/', (req, res) => {
         })
 })
 
+
+router.delete('/', (req, res) => {
+    
+    const sqlText = 'DELETE FROM "shoppingList"'
+    pool.query(sqlText)
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((dbError) => {
+            console.log("delete item failed", dbError);
+            res.sendStatus(500);
+        })
+})
+
+router.delete('/:id', (req, res) => {
+    const idToDelete = req.params.id;
+    const sqlText = `
+        DELETE FROM "shoppingList"
+        WHERE "id" = $1
+    `
+    const sqlValues = [idToDelete]
+    pool.query(sqlText, sqlValues)
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((dbError) => {
+            console.log("delete item failed", dbError);
+            res.sendStatus(500);
+        })
+})
+
+router.put('/:id', (req, res) => {
+    let idToUpdate = req.params.id;
+        let queryText = `
+        UPDATE "shoppingList"
+        SET "isPurchased" = true
+        WHERE "id" = $1;`;
+        const sqlValues = [idToUpdate]
+        pool.query(queryText, sqlValues)
+            .then((result) => {
+                res.sendStatus(200);
+            })
+            .catch((dbError) => {
+                console.log("update item failed", dbError);
+                res.sendStatus(500);
+            })
+});
+
 module.exports = router;
