@@ -83,4 +83,18 @@ router.put('/:id', (req, res) => {
             })
 });
 
+router.put('/', (req, res) => {
+    
+    const sqlText = `UPDATE "shoppingList"
+                        SET "isPurchased" = FALSE `
+    pool.query(sqlText)
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((dbError) => {
+            console.log("update item failed", dbError);
+            res.sendStatus(500);
+        })
+})
+
 module.exports = router;

@@ -13,17 +13,28 @@ function ShoppingList({shoppingList, getItems}) {
           })
       }
 
+      const resetAll = () => {
+        axios.put('/shopping')
+          .then(response => {
+            getItems()
+          })
+          .catch(err => {
+            alert('error updating items');
+            console.log(err);
+          })
+      }
+
 
 
 return (
     <>
     <h2>Shopping List</h2>
-                <button>Reset</button>
+                <button onClick={resetAll}>Reset</button>
                 <button onClick={clearAll}>Clear</button>
                 <div>
                     {shoppingList.map(item => (
-                        <div key={item.id}>
-                            <div>
+                        <div className="item" key={item.id}>
+                            <div className="item2">
                                 <p>{item.name}</p>
                                 <p>{item.quantity} {item.unit}</p>
                             

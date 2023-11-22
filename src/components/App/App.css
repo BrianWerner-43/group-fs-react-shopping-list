@@ -2,3 +2,15 @@ main {
   width: 90%;
   margin: auto;
 }
+
+.item {
+  float: left;
+  border: black  dotted;
+  border-radius: black 5px;
+  margin: 6px;
+  
+}
+
+.item2 {
+  padding: 1rem;
+}
